@@ -32,16 +32,16 @@ class Main : AppCompatActivity() {
         setPercentUI(mCurrentPercent)
         mTimer.start()
         mComposites.add(Observable
-                    .range(0, mIterations)
-                    .subscribeOn(Schedulers.computation())
-                    .subscribeBy(
-                        onNext = { isPrime(it) },
-                        onComplete = {
-                            mTimer.stop()
-                            runOnUiThread { setLoading(false) }
-                            setResultUI(mTimer.elapsedTime)
-                        }
-                    )
+            .range(0, mIterations)
+            .subscribeOn(Schedulers.computation())
+            .subscribeBy(
+                onNext = { isPrime(it) },
+                onComplete = {
+                    mTimer.stop()
+                    runOnUiThread { setLoading(false) }
+                    setResultUI(mTimer.elapsedTime)
+                }
+            )
         )
 
     }
