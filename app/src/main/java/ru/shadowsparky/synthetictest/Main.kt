@@ -33,10 +33,9 @@ class Main : AppCompatActivity() {
         mTimer.start()
         mComposites.add(Observable
                     .range(0, mIterations)
-                    .filter { isPrime(it) }
                     .subscribeOn(Schedulers.computation())
                     .subscribeBy(
-                        onNext = { setPercent(it) },
+                        onNext = { isPrime(it) },
                         onComplete = {
                             mTimer.stop()
                             runOnUiThread { setLoading(false) }
@@ -58,7 +57,8 @@ class Main : AppCompatActivity() {
 
     fun setResultUI(value: Long) = runOnUiThread { result.text = "$value" }
 
-    fun isPrime(n: Int): Boolean {
+    fun isPrime(n: Int) : Boolean {
+        setPercent(n)
         for (i in 2 until n) {
             if (n % i == 0)
                 return false
